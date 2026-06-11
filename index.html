@@ -2,13 +2,14 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>أسرار خوارزميات تيك توك والحلول الجذرية للنمو والانتشار | جنكيز</title>
 <meta name="description" content="الدليل الشامل لفهم خوارزميات تيك توك، أسرار لا يعرفها الكثيرون، والحلول الجذرية للنمو المستدام - مرجع معتمد من مصادر رسمية">
 <meta name="theme-color" content="#0a0a0d">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&family=Cairo:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
+/* ---------- التصميم الأساسي والتجاوب ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -16,6 +17,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* منع التمرير غير المرغوب فيه مع الحفاظ على وظيفة التمرير للكتاب */
 html, body {
   height: 100%;
   width: 100%;
@@ -28,10 +30,11 @@ body {
   background: #0a0a0d;
   color: #ece8e0;
   font-weight: 500;
-  font-size: 16px;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* ---------- وحدات مرنة باستخدام CSS Variables مع Media Queries ---------- */
 :root {
   --gold: #D4AF37;
   --gold-l: #F3E5AB;
@@ -43,96 +46,61 @@ body {
   --side: #101014;
   --hl-bg: rgba(212, 175, 55, 0.08);
   --ref-bg: rgba(212, 175, 55, 0.04);
+  --transition-default: all 0.2s ease;
 }
 
-/* ========================================
-   تصميم متجاوب بالكامل لجميع الشاشات
-   ======================================== */
-
-/* شاشات الحاسوب الكبيرة */
-@media (min-width: 1025px) {
-  :root {
-    --bw: 520px;
-    --bh: 680px;
-    --sw: 20px;
-    --font-base: 18px;
-    --font-h2: 24px;
-    --font-h3: 20px;
-    --padding-pc: 32px;
-    --radius: 12px;
-  }
-  .ba { left: auto; right: 260px; }
+/* استراتيجية التجاوب الاحترافية باستخدام 4 نقاط تحول رئيسية */
+/* 1. شاشات الحاسوب الكبيرة */
+@media (min-width: 1200px) {
+  :root { --bw: 550px; --bh: 700px; --sw: 20px; --font-base: 18px; --font-h2: 26px; --font-h3: 22px; --padding-pc: 36px; --radius: 14px; --ctrl-offset: -150px; }
+  .ba { right: 260px; left: auto; }
   .side { transform: translateX(0); }
   .mbtn { display: none; }
-  .ctrl { transform: translateX(calc(-50% - 130px)); left: 50%; }
 }
 
-/* شاشات الحاسوب المتوسطة واللوحات (بين 768 و 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
-  :root {
-    --bw: 480px;
-    --bh: 640px;
-    --sw: 16px;
-    --font-base: 17px;
-    --font-h2: 22px;
-    --font-h3: 19px;
-    --padding-pc: 28px;
-    --radius: 12px;
-  }
-  .ba { left: 0; right: 0; }
+/* 2. شاشات الحاسوب المتوسطة واللوحات الكبيرة */
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root { --bw: 480px; --bh: 640px; --sw: 16px; --font-base: 17px; --font-h2: 22px; --font-h3: 19px; --padding-pc: 28px; --radius: 12px; --ctrl-offset: 0px; }
+  .ba { right: 0; left: 0; }
   .side { transform: translateX(100%); }
   .side.op { transform: translateX(0); }
   .mbtn { display: flex; }
-  .ctrl { transform: translateX(-50%); left: 50%; }
 }
 
-/* شاشات الهواتف (أقل من 768px) - العرض يأخذ كامل الشاشة */
+/* 3. شاشات الهواتف (الأكثر أهمية) */
 @media (max-width: 767px) {
-  :root {
-    --bw: 94vw;
-    --bh: 80vh;
-    --sw: 10px;
-    --font-base: 15px;
-    --font-h2: 20px;
-    --font-h3: 17px;
-    --padding-pc: 18px;
-    --radius: 10px;
-  }
-  .ba { left: 0; right: 0; }
-  .side { transform: translateX(100%); width: 270px; }
+  :root { --bw: 94vw; --bh: 80vh; --sw: 10px; --font-base: 15px; --font-h2: 20px; --font-h3: 17px; --padding-pc: 20px; --radius: 10px; --ctrl-offset: 0px; }
+  .ba { right: 0; left: 0; }
+  .side { transform: translateX(100%); width: 280px; }
   .side.op { transform: translateX(0); }
-  .mbtn { display: flex; top: 10px; right: 10px; width: 42px; height: 42px; }
-  .ctrl { transform: translateX(-50%); left: 50%; bottom: 12px; padding: 6px 12px; gap: 8px; }
-  .cb { width: 38px; height: 38px; font-size: 14px; }
-  .pi { font-size: 12px; min-width: 45px; }
+  .mbtn { display: flex; top: 12px; right: 12px; width: 44px; height: 44px; font-size: 20px; }
+  .ctrl { bottom: 15px; padding: 6px 14px; gap: 10px; }
+  .cb { width: 42px; height: 42px; font-size: 16px; }
+  .pi { font-size: 13px; min-width: 50px; }
+  .cph { width: 85px; height: 85px; }
+  .ct { font-size: 19px; }
+}
+
+/* 4. شاشات صغيرة جداً (عناية فائقة بالهواتف الصغيرة) */
+@media (max-width: 480px) {
+  :root { --bw: 92vw; --bh: 78vh; --padding-pc: 16px; --font-base: 14px; --font-h2: 19px; }
+  .pc p, .pc ul li, .hl, .tp span { font-size: 14px; line-height: 1.65; }
   .cph { width: 75px; height: 75px; }
-  .cph i { font-size: 34px; }
-  .ct { font-size: 18px; }
-  .cs { font-size: 11px; }
+  .ct { font-size: 17px; }
+  .cb { width: 38px; height: 38px; font-size: 14px; }
 }
 
-/* شاشات صغيرة جداً (أقل من 400px) */
-@media (max-width: 400px) {
-  :root {
-    --bw: 92vw;
-    --bh: 78vh;
-    --padding-pc: 14px;
-    --font-base: 14px;
-    --font-h2: 18px;
-  }
-  .pc p, .pc ul li, .hl, .tp span {
-    font-size: 13px;
-    line-height: 1.6;
-  }
+/* 5. شاشات صغيرة جداً جداً (أقل من 380 بكسل) */
+@media (max-width: 380px) {
+  :root { --bw: 91vw; --bh: 76vh; --padding-pc: 14px; --font-base: 13px; --font-h2: 18px; }
+  .pc p, .pc ul li, .hl, .tp span { font-size: 13px; line-height: 1.6; }
   .cph { width: 65px; height: 65px; }
-  .cph i { font-size: 30px; }
   .ct { font-size: 16px; }
-  .cb { width: 36px; height: 36px; }
+  .cb { width: 35px; height: 35px; font-size: 12px; }
+  .ctrl { padding: 4px 10px; gap: 8px; }
 }
 
-/* ========================================
-   باقي التصميمات
-   ======================================== */
+/* ---------- تحسين الأداء: استخدام transform و opacity للرسوم المتحركة ---------- */
 .prog {
   position: fixed;
   top: 0;
@@ -141,7 +109,7 @@ body {
   background: linear-gradient(90deg, var(--gold), var(--gold-l));
   width: 0%;
   z-index: 9999;
-  transition: width .3s;
+  transition: width 0.3s ease;
 }
 
 .mbtn {
@@ -153,12 +121,12 @@ body {
   border-radius: 12px;
   background: rgba(212, 175, 55, 0.15);
   color: var(--gold);
-  font-size: 20px;
-  align-items: center;
-  justify-content: center;
   backdrop-filter: blur(12px);
   cursor: pointer;
+  transition: var(--transition-default);
 }
+
+.mbtn:hover { background: rgba(212, 175, 55, 0.25); transform: scale(0.98); }
 
 .side {
   position: fixed;
@@ -171,7 +139,8 @@ body {
   overflow-y: auto;
   z-index: 400;
   scrollbar-width: thin;
-  transition: transform .3s ease;
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  will-change: transform;
 }
 
 .side::-webkit-scrollbar { width: 4px; }
@@ -199,9 +168,10 @@ body {
   font-size: 14px;
   outline: none;
   margin-bottom: 15px;
+  transition: var(--transition-default);
 }
 
-.sinp:focus { border-color: rgba(212, 175, 55, 0.6); }
+.sinp:focus { border-color: rgba(212, 175, 55, 0.6); background: rgba(255, 255, 255, 0.06); }
 
 .ti {
   padding: 10px 12px;
@@ -218,10 +188,10 @@ body {
   width: 100%;
   text-align: right;
   font-family: inherit;
-  transition: all .2s;
+  transition: var(--transition-default);
 }
 
-.ti:hover { background: rgba(212, 175, 55, 0.1); color: var(--gold); }
+.ti:hover { background: rgba(212, 175, 55, 0.1); color: var(--gold); transform: translateX(-2px); }
 .ti.ac { background: rgba(212, 175, 55, 0.15); color: var(--gold-l); }
 
 .tn {
@@ -250,7 +220,10 @@ body {
   perspective: 2000px;
   z-index: 10;
 }
+@media (min-width: 1200px) { .ba { left: 0; } }
+@media (max-width: 1199px) { .ba { right: 0; left: 0; } }
 
+/* تحسين الأداء: استخدام will-change للعناصر المتحركة */
 .bk {
   position: relative;
   width: var(--bw);
@@ -258,7 +231,8 @@ body {
   transform-style: preserve-3d;
   transform: rotateX(1deg) rotateY(-0.5deg);
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
-  animation: bi .5s ease-out;
+  animation: bi 0.5s ease-out;
+  will-change: transform;
 }
 
 @keyframes bi {
@@ -284,7 +258,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(90deg);
-  font-size: 6.5px;
+  font-size: 7px;
   font-weight: 700;
   color: rgba(212, 175, 55, 0.3);
   white-space: nowrap;
@@ -297,8 +271,9 @@ body {
   height: 100%;
   transform-style: preserve-3d;
   transform-origin: right center;
-  transition: transform .7s cubic-bezier(0.3, 0, 0.2, 1);
+  transition: transform 0.7s cubic-bezier(0.3, 0, 0.2, 1);
   cursor: default;
+  will-change: transform;
 }
 
 .lf.fl { transform: rotateY(-180deg); }
@@ -326,8 +301,8 @@ body {
 }
 
 .bd-c {
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
   border: 2px solid rgba(212, 175, 55, 0.15);
   border-radius: 50%;
   display: flex;
@@ -337,14 +312,15 @@ body {
 
 .bd-c::after {
   content: '';
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border: 1px solid rgba(212, 175, 55, 0.08);
   border-radius: 50%;
 }
 
-.bd-n { margin-top: 10px; font-size: 13px; font-weight: 600; color: #666; }
+.bd-n { margin-top: 12px; font-size: 14px; font-weight: 600; color: #888; }
 
+/* تحسين التمرير داخل الصفحات */
 .pc {
   width: 100%;
   height: 100%;
@@ -353,28 +329,30 @@ body {
   flex-direction: column;
   overflow-y: auto;
   scrollbar-width: thin;
+  scroll-behavior: smooth;
 }
 
 .pc::-webkit-scrollbar { width: 3px; }
-.pc::-webkit-scrollbar-thumb { background: #2a2a30; border-radius: 3px; }
+.pc::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+.pc::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 3px; }
 
 .pc h2 {
   font-family: 'Cairo', sans-serif;
   font-weight: 800;
   font-size: var(--font-h2);
   color: var(--gold);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .pc h2::before {
   content: '';
   width: 4px;
-  height: 26px;
+  height: 28px;
   background: var(--gold);
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .pc h3 {
@@ -382,17 +360,17 @@ body {
   font-weight: 700;
   font-size: var(--font-h3);
   color: var(--gold);
-  margin: 18px 0 8px;
+  margin: 20px 0 10px;
   border-right: 2px solid var(--gold);
-  padding-right: 10px;
+  padding-right: 12px;
 }
 
 .or {
   color: var(--gold);
   font-size: 11px;
-  margin: 5px 0 15px;
-  letter-spacing: 4px;
-  opacity: 0.5;
+  margin: 5px 0 18px;
+  letter-spacing: 5px;
+  opacity: 0.4;
   text-align: center;
 }
 
@@ -405,11 +383,11 @@ body {
 }
 
 .hl {
-  background: var(--hl-bg);
+  background: linear-gradient(90deg, var(--hl-bg), transparent);
   border-right: 4px solid var(--gold);
-  padding: 12px 16px;
-  border-radius: 0 12px 12px 0;
-  margin: 14px 0;
+  padding: 14px 18px;
+  border-radius: 0 14px 14px 0;
+  margin: 16px 0;
   font-size: calc(var(--font-base) - 1px);
   line-height: 1.8;
   color: var(--gold-l);
@@ -417,18 +395,18 @@ body {
 
 .tp {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: flex-start;
-  padding: 12px 14px;
+  padding: 14px 16px;
   background: rgba(212, 175, 55, 0.04);
-  border-radius: 12px;
-  margin: 12px 0;
-  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 14px;
+  margin: 14px 0;
+  border: 1px solid rgba(212, 175, 55, 0.08);
 }
 
 .tp i {
   color: var(--gold);
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-top: 4px;
   flex-shrink: 0;
 }
@@ -439,33 +417,39 @@ body {
   color: var(--txt);
 }
 
-.pc ul { padding-right: 20px; margin: 10px 0; }
+.pc ul { padding-right: 24px; margin: 12px 0; }
 .pc ul li {
   font-size: calc(var(--font-base) - 1px);
   line-height: 1.8;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  list-style-type: '✨ ';
 }
 .pc ul li strong { color: var(--gold); }
 
 .ref {
   font-size: 11px;
   color: var(--gold);
-  margin-top: 8px;
-  padding: 5px 10px;
+  margin-top: 10px;
+  padding: 6px 12px;
   background: var(--ref-bg);
-  border-radius: 8px;
-  display: inline-block;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   border-right: 2px solid var(--gold);
 }
 
 .pn {
   margin-top: auto;
-  padding-top: 15px;
+  padding-top: 18px;
   text-align: center;
   font-size: 11px;
-  color: #555;
+  color: #6a6a6a;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
+/* تصميم الغلاف الأمامي */
 .cv {
   width: 100%;
   height: 100%;
@@ -486,29 +470,29 @@ body {
   position: absolute;
   inset: 12px;
   border: 1.5px solid rgba(212, 175, 55, 0.15);
-  border-radius: 8px;
+  border-radius: 10px;
   pointer-events: none;
 }
 
 .cc {
   position: absolute;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-color: rgba(212, 175, 55, 0.25);
   border-style: solid;
 }
-.cc.tl { top: 14px; right: 14px; border-width: 1.5px 1.5px 0 0; }
-.cc.tr { top: 14px; left: 14px; border-width: 1.5px 0 0 1.5px; }
-.cc.bl { bottom: 14px; right: 14px; border-width: 0 1.5px 1.5px 0; }
-.cc.br { bottom: 14px; left: 14px; border-width: 0 0 1.5px 1.5px; }
+.cc.tl { top: 16px; right: 16px; border-width: 1.5px 1.5px 0 0; }
+.cc.tr { top: 16px; left: 16px; border-width: 1.5px 0 0 1.5px; }
+.cc.bl { bottom: 16px; right: 16px; border-width: 0 1.5px 1.5px 0; }
+.cc.br { bottom: 16px; left: 16px; border-width: 0 0 1.5px 1.5px; }
 
 .cph {
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   border: 2.5px solid rgba(212, 175, 55, 0.4);
   overflow: hidden;
-  margin: 0 auto 15px;
+  margin: 0 auto 18px;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
@@ -523,38 +507,39 @@ body {
   justify-content: center;
   background: rgba(212, 175, 55, 0.1);
   color: rgba(212, 175, 55, 0.5);
-  font-size: 38px;
+  font-size: 42px;
 }
 
 .ct {
   font-family: 'Cairo', sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 900;
   line-height: 1.5;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   text-shadow: 0 2px 15px rgba(0, 0, 0, 0.6);
   color: var(--gold);
   letter-spacing: 1px;
 }
 
 .cs {
-  font-size: 11px;
+  font-size: 12px;
   color: rgba(212, 175, 55, 0.5);
-  margin-bottom: 15px;
-  max-width: 260px;
+  margin-bottom: 18px;
+  max-width: 280px;
   line-height: 1.8;
 }
 
 .cl {
-  width: 70px;
+  width: 80px;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
-.ca { font-family: 'Cairo', sans-serif; font-size: 15px; font-weight: 700; color: var(--gold); }
-.ce { font-size: 9px; color: rgba(212, 175, 55, 0.3); margin-top: 8px; }
+.ca { font-family: 'Cairo', sans-serif; font-size: 16px; font-weight: 700; color: var(--gold); }
+.ce { font-size: 10px; color: rgba(212, 175, 55, 0.3); margin-top: 10px; }
 
+/* تصميم الغلاف الخلفي */
 .bc {
   width: 100%;
   height: 100%;
@@ -573,23 +558,26 @@ body {
   position: absolute;
   inset: 12px;
   border: 1.5px solid rgba(212, 175, 55, 0.12);
-  border-radius: 8px;
+  border-radius: 10px;
 }
 .bc p { font-size: 12px; color: rgba(212, 175, 55, 0.45); line-height: 2; }
 
+/* أزرار التحكم المحسنة للهواتف */
 .ctrl {
   position: fixed;
   bottom: 20px;
   left: 50%;
+  transform: translateX(-50%);
   z-index: 300;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   background: rgba(10, 10, 13, 0.85);
   backdrop-filter: blur(12px);
-  padding: 8px 16px;
+  padding: 8px 18px;
   border-radius: 60px;
   border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .cb {
@@ -599,28 +587,35 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all .2s;
+  transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
 
 .cb.nv {
   background: linear-gradient(135deg, var(--gold), #b8860b);
   color: var(--bg);
-  box-shadow: 0 3px 12px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
 }
-.cb.nv:hover { transform: scale(1.05); }
-.cb.nv:disabled { opacity: 0.2; cursor: default; transform: none; }
+.cb.nv:active { transform: scale(0.95); }
+.cb.nv:disabled { opacity: 0.3; cursor: default; transform: none; }
 
 .cb.ex {
   background: rgba(255, 255, 255, 0.08);
   color: var(--gold);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
-.cb.ex:hover { background: rgba(212, 175, 55, 0.2); }
+.cb.ex:active { background: rgba(212, 175, 55, 0.25); transform: scale(0.95); }
 
 .pi {
   color: var(--gold);
   text-align: center;
   font-weight: 600;
+  min-width: 55px;
+}
+
+/* تحسينات إضافية للهواتف: منع التحديد غير المرغوب فيه */
+button, .ti, .cb {
+  user-select: none;
+  touch-action: manipulation;
 }
 </style>
 </head>
@@ -644,6 +639,7 @@ body {
   <button class="cb ex" id="bs"><i class="fas fa-volume-up"></i></button>
 </div>
 <script>
+// مصفوفة محتويات الكتاب
 const C=[
 {t:"الغلاف",tp:"cv",c:`<div class="cv"><div class="cc tl"></div><div class="cc tr"></div><div class="cc bl"></div><div class="cc br"></div><div class="cph"><img src="ja.jpeg" alt="شعار الكتاب" onerror="this.style.display='none';this.parentElement.querySelector('.cph-fb').style.display='flex'"><div class="cph-fb" style="display:none"><i class="fas fa-chart-line"></i></div></div><div class="ct">أسرار خوارزميات تيك توك<br>الحلول الجذرية للنمو والانتشار</div><div class="cs">فهم عميق لآليات المنصة واستراتيجيات عملية لبناء حضور مستدام<br><span style="font-size:10px;color:rgba(212,175,55,.3)">مرجع معتمد من مصادر رسمية</span></div><div class="cl"></div><div class="ca">تأليف: جنكيز</div><div class="ce">الطبعة الأولى — ٢٠٢٥</div></div>`},
 {t:"المقدمة",c:`<div class="pc"><h2>المقدمة</h2><div class="or">— — —</div><p>شهد عالم صناعة المحتوى تحولًا جذريًا في السنوات الأخيرة، وكان لمنصة تيك توك دور رئيسي في هذا التحول. فقد أصبحت القدرة على الوصول إلى ملايين الأشخاص لا تعتمد على عدد المتابعين أو الشهرة السابقة، بل على جودة المحتوى ومدى قدرته على جذب انتباه المشاهدين.</p><p>ومع انتشار المنصة، ظهرت كثير من المفاهيم الخاطئة حول طريقة عمل خوارزمية تيك توك. يعتقد البعض أن النجاح يعتمد على الحظ، بينما يرى آخرون أن المنصة تقيد الحسابات دون سبب واضح. والحقيقة أن الخوارزمية تعتمد على مؤشرات دقيقة تُحلل باستمرار لتحديد المحتوى المناسب لكل مستخدم، وهذا ما تؤكده الأكاديمية الرسمية لصناع المحتوى.</p><div class="hl">هذا الكتاب لا يقدم وعودًا سحرية، بل يقدم فهمًا عمليًا للمبادئ التي تقوم عليها المنصة، مع التركيز على الحلول الجذرية لبناء حساب قوي قادر على تحقيق النمو المستدام.</div><div class="ref"><i class="fas fa-check-circle"></i> المصدر: TikTok Creator Academy - أساسيات نظام التوصية</div><div class="pn">١</div></div>`},
@@ -666,6 +662,7 @@ const C=[
 {t:"المصادر والمراجع",c:`<div class="pc"><h2>المصادر والمراجع المعتمدة</h2><div class="or">— — —</div><ul style="font-size:15px"><li><strong>TikTok Creator Academy</strong> - الأكاديمية الرسمية لصناع المحتوى (المصدر الأساسي)</li><li><strong>TikTok Creator Portal & Newsroom</strong> - البوابة الرسمية للأخبار والتحديثات</li><li><strong>TikTok For Business</strong> - مركز إعلانات وأعمال تيك توك الرسمي</li><li><strong>TikTok Safety Center</strong> - مركز السلامة والسياسات الرسمي</li><li><strong>Hootsuite</strong> - منصة تحليلات عالمية معتمدة</li><li><strong>Sprout Social</strong> - منصة تحليلات بيانات التفاعل</li><li><strong>Buffer</strong> - منصة إدارة وتحليل المحتوى</li><li><strong>HubSpot</strong> - منصة تسويق رقمي معتمدة عالميًا</li><li><strong>التقارير العالمية للمحتوى الرقمي 2024-2025</strong></li><li><strong>دراسات وتجارب منشئي المحتوى المعتمدين حول العالم</strong></li></ul><div class="tp"><i class="fas fa-book"></i><span>تم جمع هذه المعلومات وتحليلها وإعادة صياغتها بعناية من مصادر موثوقة ومعتمدة، لتقديمها في صورة عملية مبسطة تعتمد على المصداقية والدقة العلمية. جميع المعلومات الواردة في هذا الكتاب يمكن التحقق منها من خلال المصادر المذكورة أعلاه.</span></div><div class="ref"><i class="fas fa-check-circle"></i> تمت مراجعة جميع المعلومات للتأكد من دقتها ومطابقتها لأحدث إصدارات المصادر الرسمية</div><div class="pn">٣٥</div></div>`},
 {t:"الغلاف الخلفي",tp:"bc",c:`<div class="bc"><div class="cc tl"></div><div class="cc tr"></div><div class="cc bl"></div><div class="cc br"></div><div style="font-size:34px;color:rgba(212,175,55,.25);margin-bottom:20px"><i class="fas fa-chart-line"></i></div><p style="font-size:15px;color:rgba(212,175,55,.6);margin-bottom:10px">خوارزميات تيك توك</p><p style="max-width:280px;font-size:13px;line-height:2.3">النجاح لا يأتي من فيديو واحد، ولا من فكرة واحدة. النجاح هو نتاج التعلم المستمر، والاستمرارية، والصبر، وتقديم قيمة حقيقية للجمهور.</p><div class="cl" style="margin:18px 0"></div><p style="font-size:11px;color:rgba(212,175,55,.3)">مرجع معتمد من مصادر رسمية</p><p style="font-size:11px;color:rgba(212,175,55,.3);margin-top:5px">كن صبورًا · اصنع قيمة · ثق بالعملية</p><p style="font-size:9px;margin-top:12px;color:rgba(212,175,55,.15)">الطبعة الأولى — ٢٠٢٥</p></div>`}
 ];
+// كود التحكم والتشغيل
 let cur=0;const tot=C.length;let sndOn=true,actx=null;const lfs=[],tis=[];
 const bk=document.getElementById('bk');
 C.forEach((ch,i)=>{
