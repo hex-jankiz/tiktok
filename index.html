@@ -2,14 +2,16 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
 <title>أسرار خوارزميات تيك توك والحلول الجذرية للنمو والانتشار | جنكيز</title>
 <meta name="description" content="الدليل الشامل لفهم خوارزميات تيك توك، أسرار لا يعرفها الكثيرون، والحلول الجذرية للنمو المستدام - مرجع معتمد من مصادر رسمية">
 <meta name="theme-color" content="#0a0a0d">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&family=Cairo:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-/* ---------- التصميم الأساسي والتجاوب ---------- */
+/* ==============================================
+   نظام التصميم المتجاوب الاحترافي
+   ============================================== */
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +19,6 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* منع التمرير غير المرغوب فيه مع الحفاظ على وظيفة التمرير للكتاب */
 html, body {
   height: 100%;
   width: 100%;
@@ -34,7 +35,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ---------- وحدات مرنة باستخدام CSS Variables مع Media Queries ---------- */
+/* المتغيرات الأساسية */
 :root {
   --gold: #D4AF37;
   --gold-l: #F3E5AB;
@@ -46,61 +47,126 @@ body {
   --side: #101014;
   --hl-bg: rgba(212, 175, 55, 0.08);
   --ref-bg: rgba(212, 175, 55, 0.04);
-  --transition-default: all 0.2s ease;
+  --transition: all 0.2s ease;
 }
 
-/* استراتيجية التجاوب الاحترافية باستخدام 4 نقاط تحول رئيسية */
-/* 1. شاشات الحاسوب الكبيرة */
+/* ==============================================
+   5 نقاط تحول (Breakpoints) لتغطية جميع الأجهزة
+   ============================================== */
+
+/* 1. شاشات الحواسيب الكبيرة (أكثر من 1200px) */
 @media (min-width: 1200px) {
-  :root { --bw: 550px; --bh: 700px; --sw: 20px; --font-base: 18px; --font-h2: 26px; --font-h3: 22px; --padding-pc: 36px; --radius: 14px; --ctrl-offset: -150px; }
+  :root {
+    --bw: 550px;
+    --bh: 700px;
+    --sw: 20px;
+    --font-base: 18px;
+    --font-h2: 26px;
+    --font-h3: 22px;
+    --padding-pc: 36px;
+    --radius: 14px;
+  }
   .ba { right: 260px; left: auto; }
   .side { transform: translateX(0); }
   .mbtn { display: none; }
+  .ctrl { transform: translateX(calc(-50% - 130px)); left: 50%; }
 }
 
-/* 2. شاشات الحاسوب المتوسطة واللوحات الكبيرة */
+/* 2. شاشات الحواسيب المتوسطة والأجهزة اللوحية الأفقية (768px - 1199px) */
 @media (min-width: 768px) and (max-width: 1199px) {
-  :root { --bw: 480px; --bh: 640px; --sw: 16px; --font-base: 17px; --font-h2: 22px; --font-h3: 19px; --padding-pc: 28px; --radius: 12px; --ctrl-offset: 0px; }
+  :root {
+    --bw: 480px;
+    --bh: 640px;
+    --sw: 16px;
+    --font-base: 17px;
+    --font-h2: 22px;
+    --font-h3: 19px;
+    --padding-pc: 28px;
+    --radius: 12px;
+  }
   .ba { right: 0; left: 0; }
   .side { transform: translateX(100%); }
   .side.op { transform: translateX(0); }
   .mbtn { display: flex; }
+  .ctrl { transform: translateX(-50%); left: 50%; }
 }
 
-/* 3. شاشات الهواتف (الأكثر أهمية) */
-@media (max-width: 767px) {
-  :root { --bw: 94vw; --bh: 80vh; --sw: 10px; --font-base: 15px; --font-h2: 20px; --font-h3: 17px; --padding-pc: 20px; --radius: 10px; --ctrl-offset: 0px; }
+/* 3. شاشات الهواتف الكبيرة واللوحات العمودية (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  :root {
+    --bw: 92vw;
+    --bh: 80vh;
+    --sw: 12px;
+    --font-base: 16px;
+    --font-h2: 21px;
+    --font-h3: 18px;
+    --padding-pc: 22px;
+    --radius: 11px;
+  }
   .ba { right: 0; left: 0; }
-  .side { transform: translateX(100%); width: 280px; }
+  .side { transform: translateX(100%); width: 270px; }
   .side.op { transform: translateX(0); }
   .mbtn { display: flex; top: 12px; right: 12px; width: 44px; height: 44px; font-size: 20px; }
-  .ctrl { bottom: 15px; padding: 6px 14px; gap: 10px; }
+  .ctrl { bottom: 15px; padding: 6px 14px; gap: 10px; left: 50%; transform: translateX(-50%); }
   .cb { width: 42px; height: 42px; font-size: 16px; }
   .pi { font-size: 13px; min-width: 50px; }
   .cph { width: 85px; height: 85px; }
   .ct { font-size: 19px; }
 }
 
-/* 4. شاشات صغيرة جداً (عناية فائقة بالهواتف الصغيرة) */
-@media (max-width: 480px) {
-  :root { --bw: 92vw; --bh: 78vh; --padding-pc: 16px; --font-base: 14px; --font-h2: 19px; }
-  .pc p, .pc ul li, .hl, .tp span { font-size: 14px; line-height: 1.65; }
-  .cph { width: 75px; height: 75px; }
-  .ct { font-size: 17px; }
-  .cb { width: 38px; height: 38px; font-size: 14px; }
+/* 4. شاشات الهواتف المتوسطة (361px - 480px) - الأكثر استخداماً */
+@media (min-width: 361px) and (max-width: 480px) {
+  :root {
+    --bw: 94vw;
+    --bh: 78vh;
+    --sw: 10px;
+    --font-base: 15px;
+    --font-h2: 20px;
+    --font-h3: 17px;
+    --padding-pc: 18px;
+    --radius: 10px;
+  }
+  .ba { right: 0; left: 0; }
+  .side { transform: translateX(100%); width: 260px; }
+  .side.op { transform: translateX(0); }
+  .mbtn { display: flex; top: 10px; right: 10px; width: 42px; height: 42px; font-size: 18px; }
+  .ctrl { bottom: 12px; padding: 6px 12px; gap: 8px; left: 50%; transform: translateX(-50%); }
+  .cb { width: 40px; height: 40px; font-size: 15px; }
+  .pi { font-size: 12px; min-width: 48px; }
+  .cph { width: 80px; height: 80px; }
+  .ct { font-size: 18px; }
+  .cs { font-size: 11px; }
+  .pc p, .pc ul li, .hl, .tp span { font-size: 14px; line-height: 1.7; }
 }
 
-/* 5. شاشات صغيرة جداً جداً (أقل من 380 بكسل) */
-@media (max-width: 380px) {
-  :root { --bw: 91vw; --bh: 76vh; --padding-pc: 14px; --font-base: 13px; --font-h2: 18px; }
-  .pc p, .pc ul li, .hl, .tp span { font-size: 13px; line-height: 1.6; }
-  .cph { width: 65px; height: 65px; }
+/* 5. شاشات الهواتف الصغيرة جداً (أقل من 360px) - تغطية كاملة */
+@media (max-width: 360px) {
+  :root {
+    --bw: 92vw;
+    --bh: 76vh;
+    --sw: 8px;
+    --font-base: 14px;
+    --font-h2: 19px;
+    --font-h3: 16px;
+    --padding-pc: 14px;
+    --radius: 9px;
+  }
+  .ba { right: 0; left: 0; }
+  .side { transform: translateX(100%); width: 250px; }
+  .side.op { transform: translateX(0); }
+  .mbtn { display: flex; top: 8px; right: 8px; width: 38px; height: 38px; font-size: 16px; }
+  .ctrl { bottom: 10px; padding: 5px 10px; gap: 6px; left: 50%; transform: translateX(-50%); }
+  .cb { width: 36px; height: 36px; font-size: 13px; }
+  .pi { font-size: 11px; min-width: 42px; }
+  .cph { width: 70px; height: 70px; }
   .ct { font-size: 16px; }
-  .cb { width: 35px; height: 35px; font-size: 12px; }
-  .ctrl { padding: 4px 10px; gap: 8px; }
+  .cs { font-size: 10px; }
+  .pc p, .pc ul li, .hl, .tp span { font-size: 13px; line-height: 1.65; }
 }
 
-/* ---------- تحسين الأداء: استخدام transform و opacity للرسوم المتحركة ---------- */
+/* ==============================================
+   المكونات المشتركة
+   ============================================== */
 .prog {
   position: fixed;
   top: 0;
@@ -114,8 +180,6 @@ body {
 
 .mbtn {
   position: fixed;
-  top: 12px;
-  right: 12px;
   z-index: 500;
   border: none;
   border-radius: 12px;
@@ -123,10 +187,12 @@ body {
   color: var(--gold);
   backdrop-filter: blur(12px);
   cursor: pointer;
-  transition: var(--transition-default);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-.mbtn:hover { background: rgba(212, 175, 55, 0.25); transform: scale(0.98); }
+.mbtn:hover { background: rgba(212, 175, 55, 0.25); }
 
 .side {
   position: fixed;
@@ -140,9 +206,7 @@ body {
   z-index: 400;
   scrollbar-width: thin;
   transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-  will-change: transform;
 }
-
 .side::-webkit-scrollbar { width: 4px; }
 .side::-webkit-scrollbar-thumb { background: #2a2a30; border-radius: 4px; }
 
@@ -168,9 +232,8 @@ body {
   font-size: 14px;
   outline: none;
   margin-bottom: 15px;
-  transition: var(--transition-default);
+  transition: var(--transition);
 }
-
 .sinp:focus { border-color: rgba(212, 175, 55, 0.6); background: rgba(255, 255, 255, 0.06); }
 
 .ti {
@@ -188,10 +251,9 @@ body {
   width: 100%;
   text-align: right;
   font-family: inherit;
-  transition: var(--transition-default);
+  transition: var(--transition);
 }
-
-.ti:hover { background: rgba(212, 175, 55, 0.1); color: var(--gold); transform: translateX(-2px); }
+.ti:hover { background: rgba(212, 175, 55, 0.1); color: var(--gold); }
 .ti.ac { background: rgba(212, 175, 55, 0.15); color: var(--gold-l); }
 
 .tn {
@@ -206,7 +268,6 @@ body {
   background: rgba(212, 175, 55, 0.15);
   color: var(--gold);
 }
-
 .ti.ac .tn { background: var(--gold); color: var(--bg); }
 .ti.hd { display: none; }
 
@@ -223,7 +284,6 @@ body {
 @media (min-width: 1200px) { .ba { left: 0; } }
 @media (max-width: 1199px) { .ba { right: 0; left: 0; } }
 
-/* تحسين الأداء: استخدام will-change للعناصر المتحركة */
 .bk {
   position: relative;
   width: var(--bw);
@@ -232,9 +292,7 @@ body {
   transform: rotateX(1deg) rotateY(-0.5deg);
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
   animation: bi 0.5s ease-out;
-  will-change: transform;
 }
-
 @keyframes bi {
   from { opacity: 0; transform: rotateX(1deg) rotateY(-0.5deg) scale(0.95); }
   to { opacity: 1; }
@@ -252,13 +310,12 @@ body {
   background: repeating-linear-gradient(to bottom, #0e1e32, #0b1828 3px, #0e1e32 6px);
   border-radius: 4px 0 0 4px;
 }
-
 .sp-t {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(90deg);
-  font-size: 7px;
+  font-size: 6.5px;
   font-weight: 700;
   color: rgba(212, 175, 55, 0.3);
   white-space: nowrap;
@@ -273,9 +330,7 @@ body {
   transform-origin: right center;
   transition: transform 0.7s cubic-bezier(0.3, 0, 0.2, 1);
   cursor: default;
-  will-change: transform;
 }
-
 .lf.fl { transform: rotateY(-180deg); }
 .lf.na { transition: none !important; }
 
@@ -286,7 +341,6 @@ body {
   backface-visibility: hidden;
   overflow: hidden;
 }
-
 .ff { background: var(--pg); border-radius: 0 var(--radius) var(--radius) 0; }
 .fb { transform: rotateY(180deg); background: var(--pg2); border-radius: var(--radius) 0 0 var(--radius); }
 
@@ -299,7 +353,6 @@ body {
   justify-content: center;
   padding: 20px;
 }
-
 .bd-c {
   width: 55px;
   height: 55px;
@@ -309,7 +362,6 @@ body {
   align-items: center;
   justify-content: center;
 }
-
 .bd-c::after {
   content: '';
   width: 30px;
@@ -317,10 +369,8 @@ body {
   border: 1px solid rgba(212, 175, 55, 0.08);
   border-radius: 50%;
 }
-
 .bd-n { margin-top: 12px; font-size: 14px; font-weight: 600; color: #888; }
 
-/* تحسين التمرير داخل الصفحات */
 .pc {
   width: 100%;
   height: 100%;
@@ -331,9 +381,7 @@ body {
   scrollbar-width: thin;
   scroll-behavior: smooth;
 }
-
 .pc::-webkit-scrollbar { width: 3px; }
-.pc::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
 .pc::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 3px; }
 
 .pc h2 {
@@ -346,7 +394,6 @@ body {
   align-items: center;
   gap: 12px;
 }
-
 .pc h2::before {
   content: '';
   width: 4px;
@@ -403,14 +450,12 @@ body {
   margin: 14px 0;
   border: 1px solid rgba(212, 175, 55, 0.08);
 }
-
 .tp i {
   color: var(--gold);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin-top: 4px;
   flex-shrink: 0;
 }
-
 .tp span {
   font-size: calc(var(--font-base) - 1px);
   line-height: 1.8;
@@ -449,7 +494,7 @@ body {
   letter-spacing: 1px;
 }
 
-/* تصميم الغلاف الأمامي */
+/* الغلاف الأمامي */
 .cv {
   width: 100%;
   height: 100%;
@@ -464,7 +509,6 @@ body {
   border-radius: 0 var(--radius) var(--radius) 0;
   position: relative;
 }
-
 .cv::before {
   content: '';
   position: absolute;
@@ -473,7 +517,6 @@ body {
   border-radius: 10px;
   pointer-events: none;
 }
-
 .cc {
   position: absolute;
   width: 26px;
@@ -520,7 +563,6 @@ body {
   color: var(--gold);
   letter-spacing: 1px;
 }
-
 .cs {
   font-size: 12px;
   color: rgba(212, 175, 55, 0.5);
@@ -528,18 +570,16 @@ body {
   max-width: 280px;
   line-height: 1.8;
 }
-
 .cl {
   width: 80px;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
   margin-bottom: 18px;
 }
-
 .ca { font-family: 'Cairo', sans-serif; font-size: 16px; font-weight: 700; color: var(--gold); }
 .ce { font-size: 10px; color: rgba(212, 175, 55, 0.3); margin-top: 10px; }
 
-/* تصميم الغلاف الخلفي */
+/* الغلاف الخلفي */
 .bc {
   width: 100%;
   height: 100%;
@@ -562,12 +602,10 @@ body {
 }
 .bc p { font-size: 12px; color: rgba(212, 175, 55, 0.45); line-height: 2; }
 
-/* أزرار التحكم المحسنة للهواتف */
+/* أزرار التحكم */
 .ctrl {
   position: fixed;
   bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 300;
   display: flex;
   align-items: center;
@@ -579,6 +617,8 @@ body {
   border: 1px solid rgba(212, 175, 55, 0.2);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
+@media (min-width: 1200px) { .ctrl { left: 50%; transform: translateX(calc(-50% - 130px)); } }
+@media (max-width: 1199px) { .ctrl { left: 50%; transform: translateX(-50%); } }
 
 .cb {
   border: none;
@@ -589,7 +629,6 @@ body {
   justify-content: center;
   transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
-
 .cb.nv {
   background: linear-gradient(135deg, var(--gold), #b8860b);
   color: var(--bg);
@@ -597,14 +636,12 @@ body {
 }
 .cb.nv:active { transform: scale(0.95); }
 .cb.nv:disabled { opacity: 0.3; cursor: default; transform: none; }
-
 .cb.ex {
   background: rgba(255, 255, 255, 0.08);
   color: var(--gold);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 .cb.ex:active { background: rgba(212, 175, 55, 0.25); transform: scale(0.95); }
-
 .pi {
   color: var(--gold);
   text-align: center;
@@ -612,11 +649,8 @@ body {
   min-width: 55px;
 }
 
-/* تحسينات إضافية للهواتف: منع التحديد غير المرغوب فيه */
-button, .ti, .cb {
-  user-select: none;
-  touch-action: manipulation;
-}
+/* تحسينات اللمس */
+button, .ti, .cb { user-select: none; touch-action: manipulation; }
 </style>
 </head>
 <body>
@@ -639,7 +673,7 @@ button, .ti, .cb {
   <button class="cb ex" id="bs"><i class="fas fa-volume-up"></i></button>
 </div>
 <script>
-// مصفوفة محتويات الكتاب
+// محتويات الكتاب
 const C=[
 {t:"الغلاف",tp:"cv",c:`<div class="cv"><div class="cc tl"></div><div class="cc tr"></div><div class="cc bl"></div><div class="cc br"></div><div class="cph"><img src="ja.jpeg" alt="شعار الكتاب" onerror="this.style.display='none';this.parentElement.querySelector('.cph-fb').style.display='flex'"><div class="cph-fb" style="display:none"><i class="fas fa-chart-line"></i></div></div><div class="ct">أسرار خوارزميات تيك توك<br>الحلول الجذرية للنمو والانتشار</div><div class="cs">فهم عميق لآليات المنصة واستراتيجيات عملية لبناء حضور مستدام<br><span style="font-size:10px;color:rgba(212,175,55,.3)">مرجع معتمد من مصادر رسمية</span></div><div class="cl"></div><div class="ca">تأليف: جنكيز</div><div class="ce">الطبعة الأولى — ٢٠٢٥</div></div>`},
 {t:"المقدمة",c:`<div class="pc"><h2>المقدمة</h2><div class="or">— — —</div><p>شهد عالم صناعة المحتوى تحولًا جذريًا في السنوات الأخيرة، وكان لمنصة تيك توك دور رئيسي في هذا التحول. فقد أصبحت القدرة على الوصول إلى ملايين الأشخاص لا تعتمد على عدد المتابعين أو الشهرة السابقة، بل على جودة المحتوى ومدى قدرته على جذب انتباه المشاهدين.</p><p>ومع انتشار المنصة، ظهرت كثير من المفاهيم الخاطئة حول طريقة عمل خوارزمية تيك توك. يعتقد البعض أن النجاح يعتمد على الحظ، بينما يرى آخرون أن المنصة تقيد الحسابات دون سبب واضح. والحقيقة أن الخوارزمية تعتمد على مؤشرات دقيقة تُحلل باستمرار لتحديد المحتوى المناسب لكل مستخدم، وهذا ما تؤكده الأكاديمية الرسمية لصناع المحتوى.</p><div class="hl">هذا الكتاب لا يقدم وعودًا سحرية، بل يقدم فهمًا عمليًا للمبادئ التي تقوم عليها المنصة، مع التركيز على الحلول الجذرية لبناء حساب قوي قادر على تحقيق النمو المستدام.</div><div class="ref"><i class="fas fa-check-circle"></i> المصدر: TikTok Creator Academy - أساسيات نظام التوصية</div><div class="pn">١</div></div>`},
